@@ -51,16 +51,17 @@ const Contact = () => {
         <div className="grid lg:grid-cols-3 gap-12">
           {/* Contact Information */}
           <div className="space-y-6">
-            <h3 className="text-2xl font-bold mb-6">Contact Information</h3>
+            <h3 className="text-2xl font-bold mb-6 animate-fade-in-up">Contact Information</h3>
             {contactInfo.map((info, index) => (
-              <Card key={index} className="bg-card border-border hover:border-primary transition-colors group">
+              <Card key={index} className="bg-card border-border hover:border-primary transition-all duration-500 group hover-lift animate-fade-in-up"
+                    style={{ animationDelay: `${index * 0.1}s` }}>
                 <CardContent className="p-6">
                   <div className="flex items-start space-x-4">
-                    <div className="flex-shrink-0 w-12 h-12 bg-gradient-surface rounded-lg flex items-center justify-center group-hover:shadow-glow transition-all">
+                    <div className="flex-shrink-0 w-12 h-12 bg-gradient-surface rounded-lg flex items-center justify-center group-hover:shadow-glow group-hover:scale-110 transition-all duration-300">
                       {info.icon}
                     </div>
                     <div>
-                      <h4 className="font-semibold mb-2 group-hover:text-primary transition-colors">
+                      <h4 className="font-semibold mb-2 group-hover:text-primary transition-all duration-300">
                         {info.title}
                       </h4>
                       {info.details.map((detail, detailIndex) => (
@@ -76,8 +77,8 @@ const Contact = () => {
           </div>
 
           {/* Contact Form */}
-          <div className="lg:col-span-2">
-            <Card className="bg-card border-border">
+          <div className="lg:col-span-2 animate-slide-in-right">
+            <Card className="bg-card border-border hover:shadow-glow transition-all duration-500">
               <CardContent className="p-8">
                 <h3 className="text-2xl font-bold mb-6">Send us a message</h3>
                 <form className="space-y-6">
@@ -122,7 +123,7 @@ const Contact = () => {
                     />
                   </div>
 
-                  <Button type="submit" size="lg" className="w-full bg-gradient-primary shadow-industrial">
+                  <Button type="submit" size="lg" className="w-full bg-gradient-primary shadow-industrial hover:shadow-glow hover:scale-105 transition-all duration-300">
                     Send Message
                   </Button>
                 </form>

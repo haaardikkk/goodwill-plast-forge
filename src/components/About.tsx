@@ -34,7 +34,7 @@ const About = () => {
       <div className="container mx-auto px-4">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Content */}
-          <div className="space-y-8">
+          <div className="space-y-8 animate-slide-in-left">
             <div>
               <div className="flex items-center space-x-2 text-primary mb-4">
                 <div className="w-8 h-0.5 bg-primary"></div>
@@ -83,16 +83,17 @@ const About = () => {
           </div>
 
           {/* Features Cards */}
-          <div className="space-y-6">
+          <div className="space-y-6 animate-slide-in-right">
             {features.map((feature, index) => (
-              <Card key={index} className="bg-surface-dark border-border hover:border-primary transition-colors group">
+            <Card key={index} className="bg-surface-dark border-border hover:border-primary transition-all duration-500 group hover-lift animate-fade-in-up"
+                  style={{ animationDelay: `${index * 0.2}s` }}>
                 <CardContent className="p-6">
                   <div className="flex items-start space-x-4">
-                    <div className="flex-shrink-0 w-16 h-16 bg-gradient-surface rounded-lg flex items-center justify-center group-hover:shadow-glow transition-all">
+                    <div className="flex-shrink-0 w-16 h-16 bg-gradient-surface rounded-lg flex items-center justify-center group-hover:shadow-glow group-hover:scale-110 transition-all duration-300">
                       {feature.icon}
                     </div>
                     <div>
-                      <h3 className="text-lg font-bold mb-2 group-hover:text-primary transition-colors">
+                      <h3 className="text-lg font-bold mb-2 group-hover:text-primary transition-all duration-300">
                         {feature.title}
                       </h3>
                       <p className="text-muted-foreground">

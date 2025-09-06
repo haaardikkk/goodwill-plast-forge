@@ -48,17 +48,18 @@ const ProductCategories = () => {
         {/* Product Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
           {categories.map((category, index) => (
-            <Card key={index} className="group bg-card border-border hover:border-primary transition-all duration-300 overflow-hidden hover:shadow-industrial">
+            <Card key={index} className="group bg-card border-border hover:border-primary transition-all duration-500 overflow-hidden hover:shadow-industrial hover-lift animate-fade-in-up" 
+                  style={{ animationDelay: `${index * 0.2}s` }}>
               <div className="relative h-48 overflow-hidden">
                 <img 
                   src={category.image} 
                   alt={category.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent group-hover:from-primary/20 transition-all duration-500"></div>
               </div>
               <CardContent className="p-6">
-                <h3 className="text-xl font-bold mb-3 group-hover:text-primary transition-colors">
+                <h3 className="text-xl font-bold mb-3 group-hover:text-primary transition-all duration-300">
                   {category.title}
                 </h3>
                 <p className="text-muted-foreground mb-4">
@@ -72,9 +73,9 @@ const ProductCategories = () => {
                     </li>
                   ))}
                 </ul>
-                <Button variant="outline" className="w-full group-hover:bg-primary group-hover:text-primary-foreground group-hover:border-primary transition-all">
+                <Button variant="outline" className="w-full group-hover:bg-primary group-hover:text-primary-foreground group-hover:border-primary group-hover:shadow-glow transition-all duration-300">
                   View Details
-                  <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-2 transition-transform duration-300" />
                 </Button>
               </CardContent>
             </Card>
@@ -82,17 +83,17 @@ const ProductCategories = () => {
         </div>
 
         {/* CTA Section */}
-        <div className="text-center bg-gradient-surface rounded-2xl p-8 shadow-glow">
+        <div className="text-center bg-gradient-surface rounded-2xl p-8 shadow-glow animate-fade-in-up hover-lift">
           <h3 className="text-2xl font-bold mb-4">Need Custom Solutions?</h3>
           <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
             Our expert team can design and manufacture custom HDPE products to meet your specific requirements. 
             Contact us for personalized solutions.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-gradient-primary shadow-industrial">
+            <Button size="lg" className="bg-gradient-primary shadow-industrial hover:shadow-glow hover:scale-105 transition-all duration-300">
               Request Custom Quote
             </Button>
-            <Button variant="outline" size="lg" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
+            <Button variant="outline" size="lg" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground hover:scale-105 transition-all duration-300">
               Download Catalog
             </Button>
           </div>
