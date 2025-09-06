@@ -8,10 +8,8 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { ArrowRight, ArrowLeft, CheckCircle, Star } from "lucide-react";
-import { motion } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 import productsImage from "@/assets/products-collection.jpg";
-import { toPng } from "html-to-image";
 
 const ProductCategories = () => {
   const ref = useRef<HTMLDivElement>(null);
@@ -65,38 +63,11 @@ const ProductCategories = () => {
   }, []);
 
   const handleDownload = (id: number) => {
-    const element = document.getElementById(`card-dialog-${id}`);
-    if (!element) return;
-
-    const clone = element.cloneNode(true) as HTMLElement;
-    clone.style.maxHeight = "none";
-    clone.style.overflow = "visible";
-    clone.style.position = "absolute";
-    clone.style.top = "-9999px";
-    clone.style.left = "-9999px";
-    clone.style.width = element.scrollWidth + "px";
-    document.body.appendChild(clone);
-
-    toPng(clone, {
-      cacheBust: true,
-      backgroundColor: "#ffffff",
-      style: {
-        transform: "scale(1)",
-        transformOrigin: "top left",
-        padding: "20px",
-      },
-    })
-      .then((dataUrl) => {
-        const link = document.createElement("a");
-        link.download = `product-${id}-specs.png`;
-        link.href = dataUrl;
-        link.click();
-        document.body.removeChild(clone);
-      })
-      .catch((err) => {
-        console.log("Failed to generate image", err);
-        document.body.removeChild(clone);
-      });
+    // Simple download functionality - could be enhanced with actual PDF generation
+    const link = document.createElement("a");
+    link.download = `product-${id}-specs.txt`;
+    link.href = "data:text/plain;charset=utf-8," + encodeURIComponent(`Product ${id} Specifications\n\nContact us for detailed specifications.`);
+    link.click();
   };
 
   return (
@@ -105,14 +76,12 @@ const ProductCategories = () => {
         <div className="relative">
           {/* Left Arrow */}
           {canScrollLeft && (
-            <motion.button
+            <button
               onClick={() => scroll("left")}
               className="absolute -left-6 top-1/2 -translate-y-1/2 z-20 p-2 rounded-full bg-primary/20 backdrop-blur-sm hover:bg-primary/40 transition-colors"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
             >
               <ArrowLeft className="w-5 h-5 text-primary" />
-            </motion.button>
+            </button>
           )}
 
           {/* Scrollable Cards */}
@@ -122,27 +91,23 @@ const ProductCategories = () => {
             // px-[10%] centers first and last cards
           >
             {categories.map((category, index) => (
-              <motion.div
+              <div
                 key={category.id}
                 className="flex-shrink-0 w-[320px] snap-center relative z-10"
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                whileHover={{ scale: 1.05, zIndex: 50 }} // overlay effect
-                style={{ transformOrigin: "center" }}
+                style={{ 
+                  transformOrigin: "center",
+                  animationDelay: `${index * 0.1}s`
+                }}
               >
                 <Dialog>
                   <DialogTrigger asChild>
-                    <motion.div className="cursor-pointer">
+                    <div className="cursor-pointer hover:scale-105 transition-transform duration-300">
                       <Card className="group bg-card border border-border hover:border-primary transition-all duration-500 overflow-hidden shadow-lg hover:shadow-2xl h-full rounded-2xl">
                         <div className="relative h-48 overflow-hidden">
-                          <motion.img
+                          <img
                             src={category.image}
                             alt={category.title}
-                            className="w-full h-full object-cover"
-                            whileHover={{ scale: 1.1 }}
-                            transition={{ duration: 0.5 }}
+                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                           />
                           <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
                         </div>
@@ -164,32 +129,20 @@ const ProductCategories = () => {
                               </li>
                             ))}
                           </ul>
-                          <motion.div
-                            whileHover={{ scale: 1.03 }}
-                            whileTap={{ scale: 0.97 }}
-                            className="mt-auto"
-                          >
+                          <div className="mt-auto">
                             <Button
                               variant="outline"
                               className="w-full flex items-center justify-center gap-2 group-hover:bg-primary group-hover:text-primary-foreground group-hover:border-primary group-hover:shadow-glow transition-all duration-300 text-sm"
                             >
                               View Details
-                              <motion.span
-                                className="inline-block"
-                                whileHover={{ x: 6 }}
-                                transition={{
-                                  type: "spring",
-                                  stiffness: 400,
-                                  damping: 12,
-                                }}
-                              >
+                              <span className="inline-block group-hover:translate-x-1 transition-transform duration-300">
                                 <ArrowRight className="w-4 h-4" />
-                              </motion.span>
+                              </span>
                             </Button>
-                          </motion.div>
+                          </div>
                         </CardContent>
                       </Card>
-                    </motion.div>
+                    </div>
                   </DialogTrigger>
 
                   {/* Dialog Content */}
@@ -293,20 +246,18 @@ const ProductCategories = () => {
                     </div>
                   </DialogContent>
                 </Dialog>
-              </motion.div>
+              </div>
             ))}
           </div>
 
           {/* Right Arrow */}
           {canScrollRight && (
-            <motion.button
+            <button
               onClick={() => scroll("right")}
               className="absolute -right-6 top-1/2 -translate-y-1/2 z-20 p-2 rounded-full bg-primary/20 backdrop-blur-sm hover:bg-primary/40 transition-colors"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
             >
               <ArrowRight className="w-5 h-5 text-primary" />
-            </motion.button>
+            </button>
           )}
         </div>
 
